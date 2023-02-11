@@ -5,6 +5,7 @@ import models.QuestionItem;
 import models.Role;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactoryUtil;
 
@@ -62,8 +63,7 @@ public class Main {
                 case 5: // deleting question by id
                     System.out.print("Enter id:");
                     int deleteId = input.nextInt();
-
-                    // will be soon
+                    deleteQuestion(deleteId);
                     stop();
                     break;
 
@@ -179,6 +179,16 @@ public class Main {
         Query query = context.createQuery("FROM Role");
         List<Role> roles = query.list();
         for (Role role : roles) System.out.println(role);
+        context.close();
+    }
+
+    private static void deleteQuestion(int id) {
+        Question question = new Question();
+        Session context = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = context.beginTransaction();
+        question.setId(id);
+        context.delete(question);
+        transaction.commit();
         context.close();
     }
 
