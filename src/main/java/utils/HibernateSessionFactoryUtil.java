@@ -1,8 +1,6 @@
 package utils;
 
-import models.Question;
-import models.QuestionItem;
-import models.Role;
+import models.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -20,6 +18,22 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(Role.class);
                 configuration.addAnnotatedClass(Question.class);
                 configuration.addAnnotatedClass(QuestionItem.class);
+                configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(UserRole.class);
+                configuration.addAnnotatedClass(Category.class);
+                configuration.addAnnotatedClass(Product.class);
+                configuration.addAnnotatedClass(ProductImage.class);
+                configuration.addAnnotatedClass(Basket.class);
+
+                configuration.addAnnotatedClass(FilterNames.class);
+                configuration.addAnnotatedClass(FilterValues.class);
+                configuration.addAnnotatedClass(FilterNameGroups.class);
+                configuration.addAnnotatedClass(Filters.class);
+
+                configuration.addAnnotatedClass(OrderStatuses.class);
+                configuration.addAnnotatedClass(Order.class);
+                configuration.addAnnotatedClass(OrderItems.class);
+
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory();
             } catch (Exception ex) {

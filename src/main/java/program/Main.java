@@ -1,19 +1,71 @@
 package program;
 
-import models.Question;
-import models.QuestionItem;
-import models.Role;
+import models.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactoryUtil;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            /*
+            Transaction transaction = context.beginTransaction();
+            var p = new Product();
+            p.setId(1);
+            var u = new User();
+            u.setId(1);
+            var basket = new Basket();
+            basket.setUser(u);
+            basket.setProduct(p);
+            basket.setCount(2);
+            context.save(basket);
+            transaction.commit();
+
+             */
+        }
+
+    }
+
+    private static void addProductCategory() {
+        try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = context.beginTransaction();
+            Category category = new Category("iPhone", "iPhone.jpg", new Date(), false);
+            context.save(category);
+
+            Product product = new Product("iPhone 13 Pro Max", "For kozaks", new Date(), false, category);
+            context.save(product);
+            ProductImage productImage = new ProductImage("1.jpg", 1, new Date(), false, product);
+            ProductImage productImage2 = new ProductImage("2.jpg", 1, new Date(), false, product);
+            context.save(productImage);
+            context.save(productImage2);
+            transaction.commit();
+        }
+    }
+
+
+    private static void addUserRole() {
+        try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction tx = context.beginTransaction();
+            var role = new Role();
+            role.setId(1);
+            var user = new User("Mark", "Janialy", "qwert@gmail.com", "39204432423", "123456");
+            context.save(user);
+            UserRole ur = new UserRole();
+            ur.setUser(user);
+            ur.setRole(role);
+            context.save(ur);
+            tx.commit();
+        }
+    }
+
+
+    private static void start() {
         while (true) {
             int index = 0;
             Scanner input = new Scanner(System.in);
@@ -152,18 +204,29 @@ public class Main {
 
         rating = (100 * countCorrect) / countAllQuestions; // calculation of accrued percents, in proportion
 
-        if (rating >= 95) {gradeOf12 = 12;}
-        else if (rating >= 90) {gradeOf12 = 11;}
-        else if (rating >= 85) {gradeOf12 = 10;}
-        else if (rating >= 70) {gradeOf12 = 9;}
-        else if (rating >= 60) {gradeOf12 = 8;}
-        else if (rating >= 50) {gradeOf12 = 7;}
-        else if (rating >= 40) {gradeOf12 = 6;}
-        else if (rating >= 30) {gradeOf12 = 5;}
-        else if (rating >= 20) {gradeOf12 = 4;}
-        else if (rating >= 10) {gradeOf12 = 3;}
-        else if (rating >= 5) {gradeOf12 = 2;}
-        else gradeOf12 = 1;
+        if (rating >= 95) {
+            gradeOf12 = 12;
+        } else if (rating >= 90) {
+            gradeOf12 = 11;
+        } else if (rating >= 85) {
+            gradeOf12 = 10;
+        } else if (rating >= 70) {
+            gradeOf12 = 9;
+        } else if (rating >= 60) {
+            gradeOf12 = 8;
+        } else if (rating >= 50) {
+            gradeOf12 = 7;
+        } else if (rating >= 40) {
+            gradeOf12 = 6;
+        } else if (rating >= 30) {
+            gradeOf12 = 5;
+        } else if (rating >= 20) {
+            gradeOf12 = 4;
+        } else if (rating >= 10) {
+            gradeOf12 = 3;
+        } else if (rating >= 5) {
+            gradeOf12 = 2;
+        } else gradeOf12 = 1;
 
         // Showing all got results
         System.out.println("All: " + countAllQuestions);
