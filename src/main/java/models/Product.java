@@ -22,7 +22,7 @@ public class Product {
     private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date dateCreate;
 
     private boolean isDelete;
 
@@ -41,11 +41,11 @@ public class Product {
         baskets = new ArrayList<>();
     }
 
-    public Product(String name, String description, Date date, boolean isDelete, Category category) {
+    public Product(String name, String description, Date dateCreate, boolean isDelete, Category category) {
         super();
         this.name = name;
         this.description = description;
-        this.date = date;
+        this.dateCreate = dateCreate;
         this.isDelete = isDelete;
         this.category = category;
     }

@@ -37,7 +37,7 @@ public class Category {
         super();
         this.name = name;
         this.image = image;
-        dateCreate = dateCreate;
+        this.dateCreate = dateCreate;
         this.isDelete = isDelete;
     }
 

@@ -22,7 +22,6 @@ public class Order {
     @JoinColumn(name = "orderStatuses_id", nullable = false)
     private OrderStatuses orderStatuses;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

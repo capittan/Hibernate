@@ -14,25 +14,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            /*
-            Transaction transaction = context.beginTransaction();
-            var p = new Product();
-            p.setId(1);
-            var u = new User();
-            u.setId(1);
-            var basket = new Basket();
-            basket.setUser(u);
-            basket.setProduct(p);
-            basket.setCount(2);
-            context.save(basket);
-            transaction.commit();
-
-             */
+            // insertProductCategory();
+            // insertProductToBasket();
+            // insertUserRole();
         }
-
     }
 
-    private static void addProductCategory() {
+    private static void insertProductCategory() {
         try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = context.beginTransaction();
             Category category = new Category("iPhone", "iPhone.jpg", new Date(), false);
@@ -45,27 +33,51 @@ public class Main {
             context.save(productImage);
             context.save(productImage2);
             transaction.commit();
+        } catch (Exception exception) {
+            System.out.println("Error: " + exception.getMessage());
         }
     }
 
-
-    private static void addUserRole() {
+    private static void insertProductToBasket() {
         try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            Transaction tx = context.beginTransaction();
-            var role = new Role();
-            role.setId(1);
-            var user = new User("Mark", "Janialy", "qwert@gmail.com", "39204432423", "123456");
-            context.save(user);
-            UserRole ur = new UserRole();
-            ur.setUser(user);
-            ur.setRole(role);
-            context.save(ur);
-            tx.commit();
+            Transaction transaction = context.beginTransaction();
+
+            var user = new User();
+            var product = new Product();
+            var basket = new Basket();
+
+            product.setId(1);
+            user.setId(1);
+            basket.setUser(user);
+            basket.setProduct(product);
+            basket.setCount(2);
+
+            context.save(basket);
+            transaction.commit();
+        } catch (Exception exception) {
+            System.out.println("Error: " + exception.getMessage());
         }
     }
 
+    private static void insertUserRole() {
+        try (var context = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = context.beginTransaction();
 
-    private static void start() {
+            var role = new Role();
+            UserRole userRole = new UserRole();
+            var user = new User("Mark", "Janialy", "qwert@gmail.com", "39204432423", "123456");
+
+            role.setId(1);
+            context.save(user);
+            userRole.setUser(user);
+            userRole.setRole(role);
+            context.save(userRole);
+            transaction.commit();
+        } catch (Exception exception) {
+            System.out.println("Error: " + exception.getMessage());
+        }
+    }
+    private static void menu() {
         while (true) {
             int index = 0;
             Scanner input = new Scanner(System.in);

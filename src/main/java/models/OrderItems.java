@@ -16,11 +16,11 @@ public class OrderItems {
     private boolean isDelete;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date DateCreate;
+    private Date dateCreate;
 
-    private int PriceBuy;
+    private int priceBuy;
 
-    private int Count;
+    private int count;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)

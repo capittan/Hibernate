@@ -18,6 +18,7 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(Role.class);
                 configuration.addAnnotatedClass(Question.class);
                 configuration.addAnnotatedClass(QuestionItem.class);
+
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(UserRole.class);
                 configuration.addAnnotatedClass(Category.class);
